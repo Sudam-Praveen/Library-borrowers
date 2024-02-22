@@ -16,13 +16,21 @@ import java.util.Random;
 
 @Service
 public class BorrowerServiceImpl implements BorrowerService {
-    
+
     @Autowired
     BorrowerRepo borrowerRepo;
     @Autowired
     ObjectMapper objectMapper;
-    
+
     public BorrowerEntity addBorrower(Borrower borrower){
+        List<BorrowerEntity> all = borrowerRepo.findAll();
+        for (BorrowerEntity theBorrower:all) {
+            if(theBorrower.getContactNumber().equals(borrower.getContactNumber())
+                    || borrower.getEmail().equals(theBorrower.getEmail())){
+                return null;
+            }
+        }
+
         BorrowerEntity borrowerEntity = objectMapper.convertValue(borrower, BorrowerEntity.class);
 
         String registerNumber = getRegisterNumber(borrowerEntity);
