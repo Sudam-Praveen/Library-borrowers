@@ -10,6 +10,7 @@ import lombok.ToString;
 @Data
 @ToString
 public class Borrower {
+    private Long id;
     private String firstName;
     private String lastName;
     private String email;

@@ -9,4 +9,5 @@ public interface BorrowerService {
     public BorrowerEntity addBorrower(Borrower borrower);
     public List<BorrowerEntity> getAllBorrowers();
     public boolean deleteBorrower(Long id);
+    public BorrowerEntity updateBorrower(Borrower borrower);
 }

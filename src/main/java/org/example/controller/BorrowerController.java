@@ -36,4 +36,11 @@ public class BorrowerController {
         }
     }
 
+    @PutMapping("/update")
+    public ResponseEntity<BorrowerEntity> updateBorrower(@RequestBody Borrower borrower){
+        BorrowerEntity updatedBorrower = borrowerService.updateBorrower(borrower);
+        return new ResponseEntity<>(updatedBorrower, HttpStatus.OK);
+    }
+
+
 }

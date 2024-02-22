@@ -64,4 +64,9 @@ public class BorrowerServiceImpl implements BorrowerService {
         }
 
     }
+    public BorrowerEntity updateBorrower(Borrower borrower){
+        BorrowerEntity borrowerEntity = objectMapper.convertValue(borrower, BorrowerEntity.class);
+        return borrowerRepo.save(borrowerEntity);
+    }
+
 }
