@@ -8,11 +8,8 @@ import org.example.service.BorrowerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
-import java.util.Random;
 
 @Service
 public class BorrowerServiceImpl implements BorrowerService {
@@ -30,22 +27,8 @@ public class BorrowerServiceImpl implements BorrowerService {
                 return null;
             }
         }
-
         BorrowerEntity borrowerEntity = objectMapper.convertValue(borrower, BorrowerEntity.class);
-
-        String registerNumber = getRegisterNumber(borrowerEntity);
-        borrowerEntity.setRegisterNo(registerNumber);
         return borrowerRepo.save(borrowerEntity);
-
-    }
-
-    private String getRegisterNumber(BorrowerEntity borrowerEntity) {
-        Random input = new Random();
-        int num = input.nextInt(1000);
-        String format = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        String dateString = format.substring(2, 10);
-        String registerNumber = "RN#"+dateString+"-"+num;
-        return registerNumber;
     }
 
     public List<BorrowerEntity> getAllBorrowers(){
@@ -67,6 +50,18 @@ public class BorrowerServiceImpl implements BorrowerService {
     public BorrowerEntity updateBorrower(Borrower borrower){
         BorrowerEntity borrowerEntity = objectMapper.convertValue(borrower, BorrowerEntity.class);
         return borrowerRepo.save(borrowerEntity);
+    }
+
+    @Override
+    public BorrowerEntity findByUserName(String userName) {
+        return  borrowerRepo.findByUserName(userName);
+
+    }
+
+    @Override
+    public Boolean isExistsBorrower(String userName) {
+        return  borrowerRepo.existsByUserName(userName);
+
     }
 
 }

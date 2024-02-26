@@ -10,4 +10,6 @@ public interface BorrowerService {
     public List<BorrowerEntity> getAllBorrowers();
     public boolean deleteBorrower(Long id);
     public BorrowerEntity updateBorrower(Borrower borrower);
+    public BorrowerEntity findByUserName(String userName);
+    public Boolean isExistsBorrower(String userName);
 }

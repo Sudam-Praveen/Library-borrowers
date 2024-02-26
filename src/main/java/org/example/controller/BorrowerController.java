@@ -18,29 +18,44 @@ public class BorrowerController {
     BorrowerService borrowerService;
 
     @PostMapping("/add")
-    public ResponseEntity<BorrowerEntity> addBorrower(@RequestBody Borrower borrower){
+    public ResponseEntity<BorrowerEntity> addBorrower(@RequestBody Borrower borrower) {
         BorrowerEntity borrowerEntity = borrowerService.addBorrower(borrower);
         return new ResponseEntity<>(borrowerEntity, HttpStatus.CREATED);
     }
-@GetMapping("/all")
-    public ResponseEntity<List<BorrowerEntity>> getBorrowers(){
+
+    @GetMapping("/all")
+    public ResponseEntity<List<BorrowerEntity>> getBorrowers() {
         List<BorrowerEntity> allBorrowers = borrowerService.getAllBorrowers();
-        return new ResponseEntity<>(allBorrowers,HttpStatus.OK);
+        return new ResponseEntity<>(allBorrowers, HttpStatus.OK);
     }
+
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> deleteBorrower(@PathVariable("id") Long id){
-        if(borrowerService.deleteBorrower(id)){
-            return new ResponseEntity<>("Deleted",HttpStatus.OK);
+    public ResponseEntity<String> deleteBorrower(@PathVariable("id") Long id) {
+        if (borrowerService.deleteBorrower(id)) {
+            return new ResponseEntity<>("Deleted", HttpStatus.OK);
         } else {
-            return new ResponseEntity<>("Not Found",HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Not Found", HttpStatus.NOT_FOUND);
         }
     }
 
     @PutMapping("/update")
-    public ResponseEntity<BorrowerEntity> updateBorrower(@RequestBody Borrower borrower){
+    public ResponseEntity<BorrowerEntity> updateBorrower(@RequestBody Borrower borrower) {
         BorrowerEntity updatedBorrower = borrowerService.updateBorrower(borrower);
         return new ResponseEntity<>(updatedBorrower, HttpStatus.OK);
     }
 
+    @GetMapping("/find-UserName/{userName}")
+    public ResponseEntity<BorrowerEntity> findByUserName(@PathVariable String userName) {
+        BorrowerEntity byUserName = borrowerService.findByUserName(userName);
+        return new ResponseEntity<>(byUserName, HttpStatus.OK);
+    }
+
+    @GetMapping("/isExistBorrower/{userName}")
+    public ResponseEntity<Boolean> isExistsUser(@PathVariable String userName) {
+
+        return (borrowerService.isExistsBorrower(userName))
+                ? new ResponseEntity<>(true, HttpStatus.OK)
+                : new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
+    }
 
 }

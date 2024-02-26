@@ -13,9 +13,11 @@ public class Borrower {
     private Long id;
     private String firstName;
     private String lastName;
+    private String userName;
     private String email;
     private String address;
     private String doB;
     private String gender;
     private String contactNumber;
+
 }
